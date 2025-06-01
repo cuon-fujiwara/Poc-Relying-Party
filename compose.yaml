@@ -1,26 +1,24 @@
 services:
-  db:
-    image: postgres:latest
-    ports:
-      - "5433:5433" 
-    volumes:
-      - db-volume:/var/lib/postgresql/data
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
   web:
     build:
       context: .
       dockerfile: Dockerfile
-    command: bundle exec rails s -p 8888 -b '0.0.0.0'
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 8889 -b '0.0.0.0'"
     volumes:
       - .:/app
       - app_bundle:/usr/local/bundle
     ports:
-      - '8888:8888'
-    depends_on:
-      - db
+      - '8889:8889'
+    networks:
+      - default
+      - op_network
     tty: true
+
 volumes:
-  db-volume:
   app_bundle:
+
+networks:
+  default:
+  op_network:
+    external: true
+    name: ruby-postgres-docker-templete_default

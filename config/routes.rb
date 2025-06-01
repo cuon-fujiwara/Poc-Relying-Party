@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  root "home#index"
+
+  # OPからのコールバックURI
+  get 'auth/:provider/callback', to: 'sessions#create'
+
+  # 認証に失敗したときのルーティング
+  get 'auth/failure', to: redirect('/')
+
+  # ログアウト
+  get 'logout', to: 'sessions#destroy'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
