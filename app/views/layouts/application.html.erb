@@ -18,5 +18,8 @@
 
   <body>
     <%= yield %>
+    <%= form_tag 'http://op-web:8888/oidc/backchannel_logout', method: :post do %>
+      <%= submit_tag 'バックチャネルログアウト', id: 'logout' %>
+    <% end %>
   </body>
 </html>

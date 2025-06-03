@@ -21,4 +21,4 @@ networks:
   default:
   op_network:
     external: true
-    name: ruby-postgres-docker-templete_default
+    name: idp_default
